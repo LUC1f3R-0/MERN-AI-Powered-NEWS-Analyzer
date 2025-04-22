@@ -31,6 +31,7 @@ const Home = () => {
                 showConfirmButton: false,
                 timer: 1500
             });
+            setSubmitted(true)
         }
     };
 
