@@ -31,7 +31,6 @@ const Home = () => {
                 showConfirmButton: false,
                 timer: 1500
             });
-            setSubmitted(true)
         }
     };
 
@@ -40,7 +39,7 @@ const Home = () => {
         if (data) { setResetButton(true) }
         setNews(data)
     }, [])
-
+    
     const fetchData = async (e) => {
         try {
             const response = await axios_instance.post('/news-check', e);
@@ -51,22 +50,23 @@ const Home = () => {
                 setSubmitted(false),
                 setResetButton(success),
                 localStorage.setItem('news', JSON.stringify(message)))
-        } catch (error) {
-            console.log(error)
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Failed to fetch news verdict.'
-            });
+            } catch (error) {
+                console.log(error)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Failed to fetch news verdict.'
+                });
+                setSubmitted(false)
+            }
+        };
+        
+        const resetPage = () => {
+            localStorage.removeItem('news')
+            setNews('')
+            setResetButton(false)
+            
         }
-    };
-
-    const resetPage = () => {
-        localStorage.removeItem('news')
-        setNews('')
-        setResetButton(false)
-
-    }
 
     return (
         <>
